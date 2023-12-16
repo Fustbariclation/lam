@@ -4,6 +4,7 @@ lam is a utility for Ubuntu that's a simple version of the lam utility on BSD (w
 It doesn't include the options found on BSD lam, but does laminate files, and includes the option to refer to
 /dev/stdin as '-'
 
+'''
 Usage:
 
 file one:
@@ -49,3 +50,4 @@ one -two -three -four -
 five -- Alpha -- Beta  -- Gamma -
 - Delta -- Jack- Jill- James
 - John- Jethro
+'''
