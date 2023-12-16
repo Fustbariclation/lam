@@ -1,0 +1,63 @@
+#!/usr/bin/gawk -f
+##!/bin/sh
+#true + /; exec /usr/bin/gawk -f "$0"; exit; / {}
+## awk script starts here
+#
+# PHMB - macos version of 'lam'
+#
+# started 14th December 2023
+# PHMB lam version 0.1
+#
+BEGIN	{
+	if ( ARGC == 1 )
+		{
+		print "usage: lam  [--Version]  file ..."
+		exit;
+		}
+	debug="true";
+	debug="false";
+	end[1]=1;
+	delete end;
+	# get all file names, substituting '/dev/stdin' for '-'
+	for ( i=1;i < ARGC;i++)
+		{
+		# check for any command line arguments "-h" or "-v" at the moment
+		if (ARGV[i] == "--Version" )
+			{
+			print "PHMB lam version 0.1 14/12/2023";
+			exit;
+			}
+		# end of command line argument
+		file_count++;
+		file[i] = ARGV[i];
+		if ( file[i] == "-" )
+			file[i] = "/dev/stdin";
+		if (debug == "true" ) print "Debug 1: " file[i];
+		}
+	if (debug == "true") print "Debug 2: " file_count " files "
+	debug="true";
+	debug="false";
+	# Now laminate
+	eof_all=0;
+	while ( eof_all < file_count)
+	    {
+	    full_line = "";
+	    for ( i=1;i <= file_count;i++)
+		{
+		if ( end[i] != 42 )
+			{
+			end[i] = getline line < file[i];
+			if ( end[i] == 0 )
+				{
+				end[i] = 42; # marker that this file is finnished
+				eof_all++; # this file has ended
+				}
+			if (debug == "true" ) print file[i] " getline returns: " end[i];
+			if ( end[i] != 42) full_line=full_line line; # concatinate this line
+			}
+		}
+	    if ( eof_all < file_count) print full_line;
+	    }
+	exit; # we don't need a main body or END section
+	}
+
