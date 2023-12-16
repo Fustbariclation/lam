@@ -7,47 +7,38 @@ It doesn't include the options found on BSD lam, but does laminate files, and in
 ```
 Usage:
 
-file one:
-
-one -
-two -
-three -
-four -
-five -
-
-file two:
-
-- Alpha -
-- Beta  -
-- Gamma -
-- Delta -
-
-file three:
-
-- Jack
-- Jill
-- James
-- John 
-- Jethro
-
+$ cat one
+one |
+two |
+three |
+four |
+five |
+$ cat two
+| Alpha |
+| Beta  |
+| Gamma |
+| Delta |
+$ cat three
+| Jack
+| Jill
+| James
+| John
+| Jethro
 $ lam one two three
-one -- Alpha -- Jack
-two -- Beta  -- Jill
-three -- Gamma -- James
-four -- Delta -- John
-five -- Jethro
-$ lam one two - <three
-one -- Alpha -- Jack
-two -- Beta  -- Jill
-three -- Gamma -- James
-four -- Delta -- John
-five -- Jethro
-
-It's useful for joining a number of lines together:
-
-cat one two three|lam - - - -
-one -two -three -four -
-five -- Alpha -- Beta  -- Gamma -
-- Delta -- Jack- Jill- James
-- John- Jethro
+one || Alpha || Jack
+two || Beta  || Jill
+three || Gamma || James
+four || Delta || John
+five || Jethro
+$ lam one two <three
+one || Alpha |
+two || Beta  |
+three || Gamma |
+four || Delta |
+five |
+$ cat one two three|lam - - - - 
+one |two |three |four |
+five || Alpha || Beta  || Gamma |
+| Delta || Jack| Jill| James
+| John| Jethro
 ```
